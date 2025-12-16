@@ -1,5 +1,6 @@
 *.log
 .DS_Store
+.kiro
 .env
 .env.backup
 .env.production
