@@ -10,19 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-/**
- * Handles user authentication operations.
- * 
- * Validates: Requirements 1.1, 2.1, 2.2, 2.3, 3.1, 3.2
- */
 class AuthController extends Controller
 {
-  /**
-   * Register a new user.
-   * 
-   * Creates a new user account and returns a Sanctum token.
-   * Validates: Requirements 1.1, 1.2, 1.3, 1.4
-   */
   public function register(RegisterRequest $request): JsonResponse
   {
     $user = User::create([
@@ -43,12 +32,6 @@ class AuthController extends Controller
     ], 'User registered successfully');
   }
 
-  /**
-   * Login user.
-   * 
-   * Validates credentials and returns a Sanctum token.
-   * Validates: Requirements 2.1, 2.2, 2.3
-   */
   public function login(LoginRequest $request): JsonResponse
   {
     if (!Auth::attempt($request->only('email', 'password'))) {
@@ -68,12 +51,6 @@ class AuthController extends Controller
     ], 'Login successful');
   }
 
-  /**
-   * Logout user.
-   * 
-   * Revokes the current Sanctum token.
-   * Validates: Requirements 3.1, 3.2
-   */
   public function logout(Request $request): JsonResponse
   {
     $request->user()->currentAccessToken()->delete();

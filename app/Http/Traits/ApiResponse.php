@@ -4,14 +4,6 @@ namespace App\Http\Traits;
 
 use Illuminate\Http\JsonResponse;
 
-/**
- * Trait for consistent API response formatting.
- * 
- * Success format: {status: "success", message: string, data: mixed}
- * Error format: {status: "error", message: string, errors: array}
- * 
- * Validates: Requirements 9.1, 9.2
- */
 trait ApiResponse
 {
     /**
