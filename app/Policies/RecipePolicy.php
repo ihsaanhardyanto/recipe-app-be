@@ -18,10 +18,14 @@ class RecipePolicy
 
   /**
    * Determine whether the user can delete the recipe.
-   * Only the recipe owner can delete it.
+   * Recipe owner OR admin can delete it.
    */
   public function delete(User $user, Recipe $recipe): bool
   {
+    if ($user->isAdmin()) {
+      return true;
+    }
+
     return $user->id === $recipe->user_id;
   }
 }

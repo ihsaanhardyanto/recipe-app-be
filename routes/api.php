@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RecipeController;
 use Illuminate\Support\Facades\Route;
@@ -35,4 +36,10 @@ Route::middleware('auth:sanctum')->group(function () {
   Route::post('/recipes', [RecipeController::class, 'store']);
   Route::put('/recipes/{recipe}', [RecipeController::class, 'update']);
   Route::delete('/recipes/{recipe}', [RecipeController::class, 'destroy']);
+
+  // Admin routes (requires admin role)
+  Route::middleware('admin')->prefix('admin')->group(function () {
+    Route::get('/users', [AdminController::class, 'index']);
+    Route::delete('/users/{user}', [AdminController::class, 'destroy']);
+  });
 });
