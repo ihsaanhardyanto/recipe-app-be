@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Recipe;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,11 +16,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Create 2 demo users with known credentials
+        $user1 = User::factory()->create([
+            'name' => 'Chef Budi',
+            'email' => 'budi@example.com',
         ]);
+
+        $user2 = User::factory()->create([
+            'name' => 'Chef Sari',
+            'email' => 'sari@example.com',
+        ]);
+
+        // Create 6 recipes for each user (total 12 recipes)
+        // With pagination default 5, this creates 3 pages
+        Recipe::factory()->count(6)->create(['user_id' => $user1->id]);
+        Recipe::factory()->count(6)->create(['user_id' => $user2->id]);
     }
 }
