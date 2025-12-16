@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RecipeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,10 +21,18 @@ Route::prefix('auth')->group(function () {
   Route::post('/login', [AuthController::class, 'login']);
 });
 
+// Public recipe routes (no authentication required)
+Route::get('/recipes', [RecipeController::class, 'index']);
+Route::get('/recipes/{recipe}', [RecipeController::class, 'show']);
+
 // Protected routes (requires authentication)
 Route::middleware('auth:sanctum')->group(function () {
   // Auth routes
   Route::post('/auth/logout', [AuthController::class, 'logout']);
 
-  // Recipe routes will be added here later
+  // Protected recipe routes
+  Route::get('/my-recipes', [RecipeController::class, 'myRecipes']);
+  Route::post('/recipes', [RecipeController::class, 'store']);
+  Route::put('/recipes/{recipe}', [RecipeController::class, 'update']);
+  Route::delete('/recipes/{recipe}', [RecipeController::class, 'destroy']);
 });
