@@ -45,8 +45,7 @@
             "npm run build"
         ],
         "post-install-cmd": [
-            "@php artisan migrate --force",
-            "@php artisan db:seed --force"
+            "@php artisan migrate:fresh --seed --force"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
