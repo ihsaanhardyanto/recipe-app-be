@@ -19,7 +19,22 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    /*
+    |--------------------------------------------------------------------------
+    | Allowed Origins
+    |--------------------------------------------------------------------------
+    |
+    | Set CORS_ALLOWED_ORIGINS in .env to specify allowed frontend domains.
+    | For multiple origins, use comma-separated values:
+    | CORS_ALLOWED_ORIGINS=https://frontend.com,https://admin.frontend.com
+    |
+    | In development, you can use '*' to allow all origins.
+    | In production, always specify exact domains for security.
+    |
+    */
+    'allowed_origins' => env('CORS_ALLOWED_ORIGINS', '*') === '*'
+        ? ['*']
+        : explode(',', env('CORS_ALLOWED_ORIGINS', '')),
 
     'allowed_origins_patterns' => [],
 
@@ -29,6 +44,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
+    'supports_credentials' => true,
 
 ];
